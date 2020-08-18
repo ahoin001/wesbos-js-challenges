@@ -38,6 +38,7 @@
 
     console.log(`People born in the 1500s: `, result)
 
+    // ******************************************************************************************
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
 
@@ -45,12 +46,14 @@
 
     console.log(`Inventors full names: `, result)
 
+    // ******************************************************************************************
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
     result = inventors.sort((a, b) => a.year - b.year)
 
     console.log(`Inventors by birthdate: `, result)
 
+    // ******************************************************************************************
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
 
@@ -60,6 +63,7 @@
 
     console.log(`Inventors total years lived: `, result)
 
+    // ******************************************************************************************
     // 5. Sort the inventors by years lived
 
     result = inventors.sort((a, b) => {
@@ -73,41 +77,42 @@
 
     console.log(`Inventors sorted by years lived: `, result)
 
+    // ******************************************************************************************
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
-
+    // ******************************************************************************************
     // 7. sort Exercise
     // Sort the people alphabetically by last name
 
+    result = inventors.sort((a, b) => a.last - b.last)
+
+    console.log(`Inventors sorted by last name: `, result)
+
+    // ******************************************************************************************
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
 
     const objectKeepingTrackOfDuplicates = {};
-    result = [];
 
+    // ? Count how many times a word occurs and increment or create an entry for it in object
     data.forEach(word => {
 
-      // console.log(word)
-      if (!objectKeepingTrackOfDuplicates[word]) {
-        objectKeepingTrackOfDuplicates[word] = 0;
-      }
-      else {
-        objectKeepingTrackOfDuplicates[word] += 1;
-      }
+      // If object already has property to track word, add 1, if not, create property and set to 1 for first occurence
+      objectKeepingTrackOfDuplicates[word] = objectKeepingTrackOfDuplicates[word]
+        ? objectKeepingTrackOfDuplicates[word] + 1
+        : 1
 
     });
 
-    for (const trackedElement in objectKeepingTrackOfDuplicates) {
-
-      console.log(trackedElement)
-
-      if (objectKeepingTrackOfDuplicates[trackedElement] >= 2) {
-        result.push(objectKeepingTrackOfDuplicates[trackedElement]);
+    // ? Iterate object properties as array, then for each one return object with key name, and from the object return value of property with key name
+    result = Object.keys(objectKeepingTrackOfDuplicates).map(word => {
+      return {
+        key: word,
+        ouccurences: objectKeepingTrackOfDuplicates[word]
       }
-
-    }
+    })
 
     console.log('The duplicated results: ', result)
 
