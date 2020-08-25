@@ -46,7 +46,9 @@
 
     const addItems = document.querySelector('.add-items');
     const itemsList = document.querySelector('.plates');
-    const items = [];
+
+    // if no items in localstorage, start with empty array
+    const items = JSON.parse(localStorage.getItem('items')) || [];
 
     // const addItem = (e) => {
     function addItem(e) {
@@ -58,7 +60,6 @@
       // then check if the node has any node with attribute name that equals item within it
       // parenthesis to exute imediately 
       const text = (this.querySelector('[name=item]')).value;
-      //  (this.querySelector('[name=item]')).value
 
       const item = {
 
@@ -74,6 +75,9 @@
       // takes array of items and then populates html with respective <li> elements
       populateList(items, itemsList)
 
+      // save current list in local storage for persistant 
+      localStorage.setItem('items', JSON.stringify(items));
+
       // <form> has reset method to clear fields
       this.reset()
 
@@ -85,7 +89,7 @@
 
         return `
         <li>
-        <input type="checkbox" data-index=${i} id="item${i}> ${plate.done ? 'checked' : ''}" />
+          <input type="checkbox" data-index=${i} id="item${i}" ${plate.done ? 'checked' : ''} />
           <label for="item${i}">${plate.text}</label>
         </li>
         `;
@@ -93,7 +97,27 @@
 
     }
 
+    const toggleDone = (e) => {
+
+
+      // ? checks if the click event happend on an input element
+      if (!e.target.matches('input')) return; // skip this unless it's an input
+      console.log(e.target)
+
+      const element = e.target;
+      const index = element.dataset.index;
+
+      items[index].done = !items[index].done;
+      localStorage.setItem('items', JSON.stringify(items));
+
+      populateList(items, itemsList);
+
+    }
+
     addItems.addEventListener('submit', addItem);
+    itemsList.addEventListener('click', toggleDone);
+
+    populateList(items, itemsList)
 
   </script>
 
