@@ -110,6 +110,7 @@
       items[index].done = !items[index].done;
       localStorage.setItem('items', JSON.stringify(items));
 
+      // visually update list with state changes
       populateList(items, itemsList);
 
     }
