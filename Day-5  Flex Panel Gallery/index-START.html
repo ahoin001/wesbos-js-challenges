@@ -161,15 +161,19 @@
 
     const panels = document.querySelectorAll('.panel');
 
-    // const toggleOpen = () => {
-    //   this.classlist.toggle('open');
-    // }
+    const toggleOpen = (e) => {
 
-    function toggleOpen(e) {
+      // 'this' is treated different in es6, for event handling, should use e.currentTarget to adress DOM element currently being adressed
+      // console.log(this)
+      e.currentTarget.classList.toggle('open');
 
-      console.log(this)
-      this.classList.toggle('open');
     }
+
+    // function toggleOpen(e) {
+
+    //   console.log(this)
+    //   this.classList.toggle('open');
+    // }
 
     function toggleActive(e) {
 
